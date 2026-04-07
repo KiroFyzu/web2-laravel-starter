@@ -24,7 +24,6 @@ jobs:
             cd /var/www/web2-fyas
             git pull origin main
 
-            # install dependency
             composer install --no-dev --optimize-autoloader
 
             # setup env kalau belum ada
@@ -32,16 +31,23 @@ jobs:
               cp .env.example .env
             fi
 
-            # generate key
-            php artisan key:generate
+            # paksa pakai sqlite
+            sed -i 's/DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env
+            touch database/database.sqlite
 
-            # clear cache biar aman
+            # generate key kalau belum ada
+            if ! grep -q "APP_KEY=base64" .env; then
+              php artisan key:generate
+            fi
+
+            # clear & optimize
             php artisan config:clear
             php artisan cache:clear
             php artisan view:clear
 
-            # optional: pakai SQLite biar aman
-            touch database/database.sqlite
+            php artisan config:cache
+            php artisan route:cache || true
+            php artisan view:cache
 
-            # restart kalau pakai PM2 (optional)
-            pm2 restart all || true
+            # restart / start laravel
+            pm2 restart laravel || pm2 start "php artisan serve --host=0.0.0.0 --port=8000" --name laravel
