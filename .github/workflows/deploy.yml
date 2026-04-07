@@ -1,4 +1,4 @@
-name: Deploy Laravel
+name: Deploy Laravel (No DB)
 
 on:
   push:
@@ -23,5 +23,25 @@ jobs:
           script: |
             cd /var/www/web2-fyas
             git pull origin main
-            composer install --no-dev
-            php artisan migrate --force
+
+            # install dependency
+            composer install --no-dev --optimize-autoloader
+
+            # setup env kalau belum ada
+            if [ ! -f .env ]; then
+              cp .env.example .env
+            fi
+
+            # generate key
+            php artisan key:generate
+
+            # clear cache biar aman
+            php artisan config:clear
+            php artisan cache:clear
+            php artisan view:clear
+
+            # optional: pakai SQLite biar aman
+            touch database/database.sqlite
+
+            # restart kalau pakai PM2 (optional)
+            pm2 restart all || true
