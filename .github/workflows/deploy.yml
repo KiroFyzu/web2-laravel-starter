@@ -1,0 +1,27 @@
+name: Deploy Laravel
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: production
+      url: https://web2-laravel-starter.fyas.my.id
+
+    steps:
+      - name: Deploy ke VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: 10080
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/web2-fyas
+            git pull origin main
+            composer install --no-dev
+            php artisan migrate --force
