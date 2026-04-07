@@ -1,3 +1,70 @@
+# Laravel Starter (assignment: web 2)
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
+
+
+## Informasi Mahasiswa
+
+* **Nama:** Hidayat Nur Said
+* **NIM:** 60200124071
+
+---
+
+## Repository & Demo 
+
+* **Repository:** [https://github.com/KiroFyzu/web2-laravel-starter](https://github.com/KiroFyzu/web2-laravel-starter)
+* **Live Demo:** [https://web2-laravel-starter.fyas.my.id/](https://web2-laravel-starter.fyas.my.id/)
+* **Status:** ![Status](https://uptime.fyas.my.id/api/badge/7/status)
+
+---
+
+## Deskripsi
+
+Aplikasi ini merupakan project Laravel sederhana yang dideploy ke VPS lokal dengan pipeline CI/CD otomatis.
+
+Deployment dilakukan menggunakan GitHub Actions dengan koneksi SSH ke server, serta memanfaatkan Cloudflare Tunnel agar aplikasi dapat diakses secara publik tanpa IP publik.
+
+---
+
+## Tech Stack
+
+* Laravel
+* PHP
+* GitHub Actions (CI/CD)
+* VPS (Local Server)
+* Cloudflare Tunnel
+* PM2
+* SQLite
+
+---
+
+## Deployment Flow
+
+Setiap push ke branch `main` akan menjalankan proses berikut:
+
+1. GitHub Actions melakukan koneksi ke VPS via SSH
+2. Repository di-update (`git pull`)
+3. Dependency di-install (`composer install`)
+4. File environment disiapkan (`.env`)
+5. Laravel dijalankan menggunakan PM2
+6. Aplikasi langsung dapat diakses melalui domain
+
+---
+
+## Catatan
+
+* Database menggunakan SQLite untuk mempermudah setup
+* Server berjalan pada jaringan lokal (home server)
+* Akses publik menggunakan Cloudflare Tunnel
+
+--------------------------------------------------------
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
